@@ -2,6 +2,7 @@ import * as types from "../actions/actionTypes";
 
 const initialState = {
    ladder: [],
+   likes: [],
    error:""
 };
 
@@ -19,6 +20,14 @@ export default (state = initialState, action) => {
            return  Object.assign({}, state, {
             error: action.error
           })
+        case types.FETCH_LIKES_SUCCSESS:
+            return  Object.assign({}, state, {
+                likes: action.items
+            }) 
+        case types.POST_LIKES_SUCCSESS:
+            return  Object.assign({}, state, {
+                likes: action.items
+            }) 
         default:
             return state;
     }

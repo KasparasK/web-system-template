@@ -6,7 +6,7 @@ import Dropdown from '../components/dropdown/dropdown.js';
 import PlayerBlock from '../components/playerBlock/playerBlock.js';
 import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
-import { fetchItems } from '../actions/ladderDataActions.js';
+import { fetchItems,fetchLikes } from '../actions/ladderDataActions.js';
 import  './homePage.css';
 
 class HomePage extends Component{
@@ -25,6 +25,7 @@ class HomePage extends Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleLeagueChange = this.handleLeagueChange.bind(this);
         this.fetch()
+        this.props.fetchLikes();
     }
 
     fetch()
@@ -37,9 +38,10 @@ class HomePage extends Component{
             });
     }
 
+    
+
     renderPlayerBlocks()
     {
-        console.log(this.props.ladder);
         if(!this.props.ladder || this.props.ladder.length === 0){
             return (
                 <h3>Error loading or empty result</h3>
@@ -54,6 +56,7 @@ class HomePage extends Component{
                         spot = {row.rank}
                         class = {row.class}
                         mapkey = {row.rank}
+                        likes = {this.props.likes}
                     />
                 );
             }
@@ -61,7 +64,7 @@ class HomePage extends Component{
 
         return(playerBocks);
     }
-
+  
     handleNameChange (event) {
         this.setState({
             name: event.target.value
@@ -91,6 +94,8 @@ class HomePage extends Component{
         e.preventDefault();        
 
         this.fetch();
+
+        this.props.fetchLikes();
     }
 
     render() {
@@ -161,13 +166,14 @@ class HomePage extends Component{
 export default connect(
     state => ({
         ladder: state.ladderReducer.ladder,
-        error: state.ladderReducer.error
-
+        error: state.ladderReducer.error,
+        likes: state.ladderReducer.likes
     }),
     dispatch =>
         bindActionCreators(
             {
-                fetchItems: fetchItems
+                fetchItems: fetchItems,
+                fetchLikes: fetchLikes
             },
             dispatch
         )

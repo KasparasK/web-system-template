@@ -17,6 +17,16 @@ export const fetchLadderFailure = (errorFetch) => ({
     errorFetch
 });
 
+export const fetchLikesSucc = (items) => ({
+    type: types.FETCH_LIKES_SUCCSESS,
+    items
+});
+
+export const postLikesSucc = (items) => ({
+    type: types.POST_LIKES_SUCCSESS,
+    items
+});
+
 export const fetchItems = (query) => dispatch => {
     dispatch(fetchLadderStart());
    
@@ -30,5 +40,32 @@ export const fetchItems = (query) => dispatch => {
         .catch((error) => {
             
             dispatch(fetchLadderFailure(error));
+        });
+};
+
+export const fetchLikes = () => dispatch => {
+   
+    axios
+        .get(ladderUrl+"/likes",
+            )
+        .then((response) => {
+            let items = response.data;
+            dispatch(fetchLikesSucc(items));
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
+
+export const postLikes = (item) => dispatch => {
+   
+    axios
+        .post(ladderUrl+"?charName="+item.charName)
+        .then((response) => {
+            let items = response.data;
+            dispatch(postLikesSucc(items));
+        })
+        .catch((error) => {
+            console.log(error);
         });
 };
