@@ -1,0 +1,29 @@
+.playerContainer
+{
+    display:inline-block;
+    clear: both;
+    background-color: white;
+    min-width: 100%;
+}
+
+.payerContainerTextContainer
+{
+ 
+    display:inline;
+    float: left;
+    text-align: left;
+}
+
+.textObject
+{
+    margin: 5px;
+    display:inline;
+}
+
+.photo
+{
+    margin: 5px;
+    
+    float:left; 
+    display:inline;
+}
